@@ -27,6 +27,11 @@ export default function LoginPage() {
       console.log(data,"dataaa");
       
       login(data.user, data.token);
+      if(data.user.role === 'admin'){
+        navigate('/admin');
+      } else {
+        navigate(redirectParams);
+      }
       toast.success('Successfully logged in!');
       navigate(redirectParams);
     } catch (err: any) {
