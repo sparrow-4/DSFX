@@ -1,10 +1,10 @@
-// Base API URL - proxied through Vite to https://dsfx.onrender.com
-const BASE_URL = '/api';
+const  API_URL =  "https://dsfx.onrender.com/api"  
+// const BASE_URL = '/api';
 
 // Generic fetch helper
 async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const { headers, ...restOptions } = options || {};
-  const res = await fetch(`${BASE_URL}${endpoint}`, {
+  const res = await fetch(`${API_URL}${endpoint}`, {
     ...restOptions,
     headers: {
       'Content-Type': 'application/json',
