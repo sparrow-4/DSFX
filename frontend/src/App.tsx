@@ -52,6 +52,8 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
     logout();
     navigate('/admin/login');
   };
+  console.log("kkk");
+  
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
