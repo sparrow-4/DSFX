@@ -13,11 +13,11 @@ export default defineConfig(({ mode }) => ({
     },
     proxy: {
       '/api': {
-        target: 'http://localhost:5001',
+        target: 'https://dsfx.onrender.com',
         changeOrigin: true,
       },
       '/uploads': {
-        target: 'http://localhost:5001',
+        target: 'https://dsfx.onrender.com',
         changeOrigin: true,
       },
     },
