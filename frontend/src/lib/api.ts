@@ -1,4 +1,4 @@
-// Base API URL - proxied through Vite to http://localhost:5000
+// Base API URL - proxied through Vite to https://dsfx.onrender.com
 const BASE_URL = '/api';
 
 // Generic fetch helper
