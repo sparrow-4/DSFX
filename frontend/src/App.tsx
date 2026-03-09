@@ -101,7 +101,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           {/* Admin routes – no Navbar/Footer */}
-          <Route path="/admin/login" element={<AdminLoginPage />} />
+          {/* <Route path="/admin/login" element={<AdminLoginPage />} /> */}
           <Route
             path="/admin"
             element={
