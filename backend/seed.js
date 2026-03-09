@@ -6,7 +6,7 @@ import Product from './models/Product.js';
 import AdminUser from './models/AdminUser.js';
 import Category from './models/Category.js';
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/spark-stage-store';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://thoyyibcherur_db_user:eOy4YA1T2gI89WsV@cluster0.duh9afm.mongodb.net/?appName=Cluster0';
 
 const demoProducts = [
   {

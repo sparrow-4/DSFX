@@ -181,52 +181,54 @@ export default function AdminCategoriesPage() {
               className="fixed inset-0 z-50 bg-background/70 backdrop-blur-sm"
               onClick={closeModal}
             />
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              className="fixed left-1/2 top-1/2 z-50 w-full max-w-md -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-border bg-card p-6 shadow-xl"
-            >
-              <div className="mb-6 flex items-center justify-between">
-                <h2 className="font-display text-xl font-bold text-foreground">
-                  {editCategory ? 'Edit Category' : 'Add Category'}
-                </h2>
-                <Button variant="ghost" size="icon" onClick={closeModal}>
-                  <X className="h-5 w-5" />
-                </Button>
-              </div>
+  <div className="fixed inset-0 z-50 flex items-center justify-center">
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-xl"
+    >
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="font-display text-xl font-bold text-foreground">
+          {editCategory ? 'Edit Category' : 'Add Category'}
+        </h2>
+        <Button variant="ghost" size="icon" onClick={closeModal}>
+          <X className="h-5 w-5" />
+        </Button>
+      </div>
 
-              <div className="space-y-4">
-                <div>
-                  <Label>Category Name *</Label>
-                  <Input 
-                    value={name} 
-                    onChange={(e) => setName(e.target.value)} 
-                    placeholder="e.g. Laser Effects" 
-                    autoFocus
-                  />
-                  <p className="mt-1 text-xs text-muted-foreground">The slug will be generated automatically.</p>
-                </div>
+      <div className="space-y-4">
+        <div>
+          <Label>Category Name *</Label>
+          <Input 
+            value={name} 
+            onChange={(e) => setName(e.target.value)} 
+            placeholder="e.g. Laser Effects" 
+            autoFocus
+          />
+          <p className="mt-1 text-xs text-muted-foreground">The slug will be generated automatically.</p>
+        </div>
 
-                <div>
-                  <Label>Description</Label>
-                  <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    rows={3}
-                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
-                    placeholder="Brief description of this category..."
-                  />
-                </div>
+        <div>
+          <Label>Description</Label>
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            rows={3}
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
+            placeholder="Brief description of this category..."
+          />
+        </div>
 
-                <div className="flex gap-3 pt-4">
-                  <Button variant="outline" onClick={closeModal} className="flex-1">Cancel</Button>
-                  <Button onClick={handleSave} className="flex-1 bg-gradient-spark font-display" disabled={saving}>
-                    {saving ? 'Saving...' : editCategory ? 'Update Category' : 'Add Category'}
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
+        <div className="flex gap-3 pt-4">
+          <Button variant="outline" onClick={closeModal} className="flex-1">Cancel</Button>
+          <Button onClick={handleSave} className="flex-1 bg-gradient-spark font-display" disabled={saving}>
+            {saving ? 'Saving...' : editCategory ? 'Update Category' : 'Add Category'}
+          </Button>
+        </div>
+      </div>
+    </motion.div>
+  </div>
           </>
         )}
       </AnimatePresence>
