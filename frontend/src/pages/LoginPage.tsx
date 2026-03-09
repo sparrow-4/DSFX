@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { loginUser } from '@/lib/api';
 import React, { useState } from 'react';
+import { log } from 'console';
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -23,6 +24,8 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const data = await loginUser({ email, password });
+      console.log(data,"dataaa");
+      
       login(data.user, data.token);
       toast.success('Successfully logged in!');
       navigate(redirectParams);

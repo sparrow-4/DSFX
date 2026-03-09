@@ -132,7 +132,7 @@ async function seed() {
 
     // Seed admin user
     const hashedPassword = await bcrypt.hash('admin123', 10);
-    await AdminUser.create({ username: 'admin', password: hashedPassword });
+    await AdminUser.create({ username: 'admin', password: hashedPassword , role: 'admin' });
     console.log('✅ Created admin user: admin / admin123');
 
     console.log('\n🎉 Database seeded successfully!');
