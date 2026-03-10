@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Link, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
 import { LogOut, Zap, LayoutDashboard, Package, ShoppingBag, BarChart3, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -102,7 +102,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           {/* Admin routes – no Navbar/Footer */}
-          <Route path="/admin/login" element={<AdminLoginPage />} />
+          <Route path="/admin/login" element={<Navigate to="/login" replace />} />
           <Route
             path="/admin"
             element={
