@@ -47,6 +47,7 @@ function StoreLayout({ children }: { children: React.ReactNode }) {
 function AdminLayout({ children }: { children: React.ReactNode }) {
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
+console.log("hrlooo");
 
   const handleLogout = () => {
     logout();
