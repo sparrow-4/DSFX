@@ -22,8 +22,8 @@ const MONGO_URI = process.env.MONGO_URI ||
 
 // Middleware
 app.use(cors({
-  origin: ["https://dsfx.vercel.app"],
-  credentials: true,
+  origin: "https://dsfx.vercel.app",
+  credentials: true
 }));
 // app.use(cors({
 //   origin: "https://dsfx.vercel.app",
