@@ -1,8 +1,7 @@
+import { Link } from 'react-router-dom';
 import { Zap, Mail, Phone, MapPin } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query';
 import { fetchSettings, fetchCategories } from '@/lib/api';
-import { useQuery } from '@tanstack/react-query';
-import { fetchSettings } from '@/lib/api';
 
 export default function Footer() {
   const { data: settings } = useQuery({
@@ -13,10 +12,6 @@ export default function Footer() {
   const { data: categories = [] } = useQuery({
     queryKey: ['categories'],
     queryFn: fetchCategories,
-  });
-  const { data: settings } = useQuery({
-    queryKey: ['settings'],
-    queryFn: fetchSettings,
   });
   return (
     <footer className="border-t border-border bg-card">
