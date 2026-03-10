@@ -8,7 +8,7 @@ export const categories: Category[] = [
     description: 'Indoor and outdoor pyrotechnic effects',
     productCount: 12,
   },
-  console.log("fsdfs");
+  
   
   {
     id: '2',
