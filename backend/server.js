@@ -21,15 +21,15 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || 
 
 // Middleware
-// app.use(cors({
-//   origin: ["http://localhost:8080"],
-//   credentials: true,
-// }));
 app.use(cors({
-  origin: "https://dsfx.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true
+  origin: ["https://dsfx.vercel.app"],
+  credentials: true,
 }));
+// app.use(cors({
+//   origin: "https://dsfx.vercel.app",
+//   methods: ["GET", "POST", "PUT", "DELETE"],
+//   credentials: true
+// }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
