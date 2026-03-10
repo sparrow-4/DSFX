@@ -146,12 +146,12 @@ export default function LoginPage() {
         {tab === "admin" && (
           <form onSubmit={handleAdminLogin} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="admin-username">Username</Label>
+              <Label htmlFor="admin-username">Username or Email</Label>
               <div className="relative">
                 <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   id="admin-username"
-                  placeholder="admin"
+                  placeholder="admin or admin@example.com"
                   className="pl-9"
                   value={adminUsername}
                   onChange={(e) => setAdminUsername(e.target.value)}
