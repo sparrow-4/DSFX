@@ -1,23 +1,23 @@
-import { useNavigate, useSearchParams, Link } from 'react-router-dom';
-import { useAuthStore } from '@/store/authStore';
-import { toast } from 'sonner';
-import { ArrowLeft, Mail, Lock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { loginUser } from '@/lib/api';
-import React, { useState } from 'react';
-import { log } from 'console';
+import { useNavigate, useSearchParams, Link } from "react-router-dom";
+import { useAuthStore } from "@/store/authStore";
+import { toast } from "sonner";
+import { ArrowLeft, Mail, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { loginUser } from "@/lib/api";
+import React, { useState } from "react";
+import { log } from "console";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { login } = useAuthStore();
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const redirectParams = searchParams.get('redirect') || '/';
+  const redirectParams = searchParams.get("redirect") || "/";
 
   const handleManualLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,17 +27,14 @@ export default function LoginPage() {
       console.log(data, "dataaa");
 
       login(data.user, data.token);
-      toast.success('Successfully logged in!');
-      if (data.user.role === "admin") {
-        navigate("/admin")
-        console.log("loggg");
-        
+      toast.success("Successfully logged in!");
+      if (data.user?.role?.toLowerCase() === "admin") {
+        navigate("/admin");
       } else {
         navigate(redirectParams);
       }
-
     } catch (err: any) {
-      toast.error(err.message || 'Login failed. Please verify credentials.');
+      toast.error(err.message || "Login failed. Please verify credentials.");
     } finally {
       setLoading(false);
     }
@@ -47,15 +44,24 @@ export default function LoginPage() {
     <div className="flex min-h-[70vh] items-center justify-center px-4 py-12">
       <div className="w-full max-w-md space-y-6 rounded-xl border border-border bg-card/50 p-8 shadow-2xl backdrop-blur-sm">
         <div className="text-center relative">
-          <Button variant="ghost" size="sm" asChild className="absolute -left-4 -top-4">
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="absolute -left-4 -top-4"
+          >
             <Link to="/">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
             </Link>
           </Button>
           <br />
-          <h2 className="font-display text-3xl font-bold tracking-tight text-foreground">Welcome Back</h2>
-          <p className="mt-2 text-sm text-muted-foreground">Log in to manage your orders</p>
+          <h2 className="font-display text-3xl font-bold tracking-tight text-foreground">
+            Welcome Back
+          </h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Log in to manage your orders
+          </p>
         </div>
 
         <form onSubmit={handleManualLogin} className="space-y-4">
@@ -90,15 +96,22 @@ export default function LoginPage() {
               />
             </div>
           </div>
-          <Button type="submit" className="w-full font-display" disabled={loading}>
-            {loading ? 'Signing in...' : 'Sign In'}
+          <Button
+            type="submit"
+            className="w-full font-display"
+            disabled={loading}
+          >
+            {loading ? "Signing in..." : "Sign In"}
           </Button>
         </form>
 
         <div className="flex justify-center flex-col gap-2 items-center mt-6">
           <p className="text-center text-sm text-muted-foreground">
-            Don't have an account?{' '}
-            <Link to={`/register?redirect=${redirectParams}`} className="text-primary hover:underline font-medium">
+            Don't have an account?{" "}
+            <Link
+              to={`/register?redirect=${redirectParams}`}
+              className="text-primary hover:underline font-medium"
+            >
               Sign up
             </Link>
           </p>
