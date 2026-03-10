@@ -30,6 +30,8 @@ export default function LoginPage() {
       toast.success('Successfully logged in!');
       if (data.user.role === "admin") {
         navigate("/admin")
+        console.log("loggg");
+        
       } else {
         navigate(redirectParams);
       }
