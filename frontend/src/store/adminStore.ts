@@ -9,11 +9,17 @@ interface AdminState {
 }
 
 export const useAdminStore = create<AdminState>()((set) => ({
+
+  
   token: sessionStorage.getItem('admin_token'),
   username: sessionStorage.getItem('admin_email'),
   isAuthenticated: !!sessionStorage.getItem('admin_token'),
 
+
+
   login: (token, username) => {
+    console.log(username,"nameee");
+    
     sessionStorage.setItem('admin_token', token);
     sessionStorage.setItem('admin_email', username);
     set({ token, username, isAuthenticated: true });
