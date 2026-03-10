@@ -20,6 +20,7 @@ import LoginPage from "@/pages/LoginPage";
 import RegisterPage from "@/pages/RegisterPage";
 import AccountPage from "@/pages/account/AccountPage";
 import OrdersPage from "@/pages/account/OrdersPage";
+import ProfileSettingsPage from '@/pages/account/ProfileSettingsPage';
 import OrderTrackingPage from "@/pages/OrderTrackingPage";
 import AdminLoginPage from "@/pages/admin/AdminLoginPage";
 import AdminDashboardPage from "@/pages/admin/AdminDashboardPage";

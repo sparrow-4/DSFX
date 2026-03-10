@@ -55,7 +55,7 @@ export default function AccountPage() {
               </div>
             </Link>
 
-            <Link to="/account" className="group flex flex-col items-center justify-center gap-4 rounded-xl border border-border bg-card p-8 transition-colors hover:border-primary">
+            <Link to="/account/settings" className="group flex flex-col items-center justify-center gap-4 rounded-xl border border-border bg-card p-8 transition-colors hover:border-primary">
               <div className="rounded-full bg-primary/10 p-4 transition-colors group-hover:bg-primary/20">
                 <img src="https://img.icons8.com/m_outlined/200/FFFFFF/user-menu-male.png" alt="Profile" className="h-10 w-10 opacity-80" />
               </div>

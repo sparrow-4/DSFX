@@ -59,6 +59,20 @@ export function registerUser(payload: { name: string; email: string; password: s
   });
 }
 
+export function fetchMyProfile(): Promise<any> {
+  return apiFetch('/users/me', {
+    headers: getCustomerAuthHeaders() as HeadersInit,
+  });
+}
+
+export function updateMyProfile(payload: any): Promise<any> {
+  return apiFetch('/users/me', {
+    method: 'PUT',
+    headers: getCustomerAuthHeaders() as HeadersInit,
+    body: JSON.stringify(payload),
+  });
+}
+
 // ─── Products ────────────────────────────────────────────────────────────────
 
 export function fetchProducts(): Promise<ApiProduct[]> {
