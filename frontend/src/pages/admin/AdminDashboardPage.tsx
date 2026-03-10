@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
-import { Package, ShoppingBag, Clock, IndianRupee, BarChart3, Settings } from 'lucide-react';
+import { Package, ShoppingBag, Clock, IndianRupee, BarChart3, Settings, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { fetchProducts, fetchOrders, fetchCategories } from '@/lib/api';
 
@@ -135,17 +135,34 @@ export default function AdminDashboardPage() {
               <Link to="/admin/reports">View Reports</Link>
             </Button>
           </motion.div>
+
+          {/* Settings Quick Action */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="rounded-xl border border-border bg-card p-6"
+          >
+            <div className="mb-4 flex items-center gap-3">
+              <Settings className="h-5 w-5 text-primary" />
+              <h2 className="font-display text-lg font-semibold text-foreground">Settings</h2>
+            </div>
+            <p className="mb-4 text-sm text-muted-foreground">Update your store information, contact details, and dynamic content.</p>
+            <Button asChild variant="outline" className="w-full font-display">
+              <Link to="/admin/settings">Edit Settings</Link>
+            </Button>
+          </motion.div>
         </div>
 
         {/* Quick nav to store */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="mt-6 text-center"
+          transition={{ delay: 0.8 }}
+          className="mt-8 text-center"
         >
           <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
-            <Settings className="h-4 w-4" /> View Store
+            <Globe className="h-4 w-4" /> View Store
           </Link>
         </motion.div>
       </div>

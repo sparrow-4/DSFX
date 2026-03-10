@@ -13,6 +13,9 @@ const navLinks = [
   { name: 'About', path: '/about' },
 ];
 
+import { useQuery } from '@tanstack/react-query';
+import { fetchSettings } from '@/lib/api';
+
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
@@ -20,14 +23,30 @@ export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuthStore();
   const itemCount = items.reduce((sum, i) => sum + i.quantity, 0);
 
+  const { data: settings } = useQuery({
+    queryKey: ['settings'],
+    queryFn: fetchSettings,
+  });
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
       <nav className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
-          <Zap className="h-7 w-7 text-primary" />
+          {settings?.logoUrl ? (
+            <img src={settings.logoUrl} alt={settings.storeName} className="h-8 object-contain" />
+          ) : (
+            <Zap className="h-7 w-7 text-primary" />
+          )}
           <span className="font-display text-xl font-bold tracking-wider text-foreground">
-            DSFX<span className="text-primary">Store</span>
+            {settings?.storeName ? (
+              <>
+                {settings.storeName.split(' ')[0]}
+                <span className="text-primary">{settings.storeName.split(' ').slice(1).join(' ')}</span>
+              </>
+            ) : (
+              <>DSFX<span className="text-primary">Store</span></>
+            )}
           </span>
         </Link>
 

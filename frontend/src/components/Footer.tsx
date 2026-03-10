@@ -1,7 +1,23 @@
-import { Link } from 'react-router-dom';
 import { Zap, Mail, Phone, MapPin } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchSettings, fetchCategories } from '@/lib/api';
+import { useQuery } from '@tanstack/react-query';
+import { fetchSettings } from '@/lib/api';
 
 export default function Footer() {
+  const { data: settings } = useQuery({
+    queryKey: ['settings'],
+    queryFn: fetchSettings,
+  });
+
+  const { data: categories = [] } = useQuery({
+    queryKey: ['categories'],
+    queryFn: fetchCategories,
+  });
+  const { data: settings } = useQuery({
+    queryKey: ['settings'],
+    queryFn: fetchSettings,
+  });
   return (
     <footer className="border-t border-border bg-card">
       <div className="container mx-auto px-4 py-12">
@@ -9,9 +25,20 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <Zap className="h-6 w-6 text-primary" />
+              {settings?.logoUrl ? (
+                <img src={settings.logoUrl} alt={settings.storeName} className="h-6 object-contain" />
+              ) : (
+                <Zap className="h-6 w-6 text-primary" />
+              )}
               <span className="font-display text-lg font-bold text-foreground">
-                DSFX<span className="text-primary">Store</span>
+                {settings?.storeName ? (
+                  <>
+                    {settings.storeName.split(' ')[0]}
+                    <span className="text-primary">{settings.storeName.split(' ').slice(1).join(' ')}</span>
+                  </>
+                ) : (
+                  <>DSFX<span className="text-primary">Store</span></>
+                )}
               </span>
             </Link>
             <p className="text-sm text-muted-foreground">
@@ -23,10 +50,16 @@ export default function Footer() {
           <div>
             <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-wider text-foreground">Shop</h4>
             <ul className="space-y-2">
-              {['Spark Machines', 'CO2 Effects', 'Flame Effects', 'Pyrotechnics', 'Fog & Haze'].map((cat) => (
-                <li key={cat}>
-                  <Link to="/products" className="text-sm text-muted-foreground transition-colors hover:text-primary">
-                    {cat}
+              {(categories.length > 0 ? categories.slice(0, 5) : [
+                { name: 'Spark Machines' },
+                { name: 'CO2 Effects' },
+                { name: 'Flame Effects' },
+                { name: 'Pyrotechnics' },
+                { name: 'Fog & Haze' }
+              ]).map((cat: any) => (
+                <li key={cat.name}>
+                  <Link to={`/products?category=${cat.name}`} className="text-sm text-muted-foreground transition-colors hover:text-primary">
+                    {cat.name}
                   </Link>
                 </li>
               ))}
@@ -57,20 +90,20 @@ export default function Footer() {
             <h4 className="mb-4 font-display text-sm font-semibold uppercase tracking-wider text-foreground">Contact</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Mail className="h-4 w-4 text-primary" /> info@dsfxstore.com
+                <Mail className="h-4 w-4 text-primary" /> {settings?.email || 'info@dsfxstore.com'}
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Phone className="h-4 w-4 text-primary" /> +1 (555) 123-4567
+                <Phone className="h-4 w-4 text-primary" /> {settings?.phone || '+1 (555) 123-4567'}
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 text-primary" /> Los Angeles, CA
+                <MapPin className="h-4 w-4 text-primary" /> {settings?.location || 'Los Angeles, CA'}
               </li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 border-t border-border pt-6 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} DSFX Store. All rights reserved.
+          © {new Date().getFullYear()} {settings?.storeName || 'DSFX Store'}. All rights reserved.
         </div>
       </div>
     </footer>

@@ -12,6 +12,7 @@ import adminRoutes from './routes/admin.js';
 import categoryRoutes from './routes/categories.js';
 import authRoutes from './routes/auth.js';
 import userRoutes from './routes/users.js';
+import settingsRoutes from './routes/settings.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -44,6 +45,7 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/settings', settingsRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

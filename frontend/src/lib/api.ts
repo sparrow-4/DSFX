@@ -71,7 +71,7 @@ export function fetchProduct(id: string): Promise<ApiProduct> {
 
 export function createProduct(formData: FormData): Promise<ApiProduct> {
   const token = sessionStorage.getItem('admin_token');
-  return fetch(`${BASE_URL}/products`, {
+  return fetch(`${API_URL}/products`, {
     method: 'POST',
     headers: token ? { Authorization: `Bearer ${token}` } : {},
     body: formData,
@@ -86,7 +86,7 @@ export function createProduct(formData: FormData): Promise<ApiProduct> {
 
 export function updateProduct(id: string, formData: FormData): Promise<ApiProduct> {
   const token = sessionStorage.getItem('admin_token');
-  return fetch(`${BASE_URL}/products/${id}`, {
+  return fetch(`${API_URL}/products/${id}`, {
     method: 'PUT',
     headers: token ? { Authorization: `Bearer ${token}` } : {},
     body: formData,
@@ -209,6 +209,20 @@ export function adminLogin(username: string, password: string): Promise<{ token:
   });
 }
 
+// ─── Settings ─────────────────────────────────────────────────────────────────
+
+export function fetchSettings(): Promise<ApiSettings> {
+  return apiFetch<ApiSettings>('/settings');
+}
+
+export function updateSettings(payload: Partial<ApiSettings>): Promise<ApiSettings> {
+  return apiFetch<ApiSettings>('/settings', {
+    method: 'PUT',
+    headers: getAuthHeaders() as HeadersInit,
+    body: JSON.stringify(payload),
+  });
+}
+
 // ─── API Types ────────────────────────────────────────────────────────────────
 
 export interface ApiProduct {
@@ -254,4 +268,20 @@ export interface ApiCategory {
   description: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface ApiSettings {
+  _id?: string;
+  storeName: string;
+  logoUrl: string;
+  aboutText: string;
+  heroSubtitle: string;
+  stats: Array<{ label: string; value: string }>;
+  benefits: Array<{ title: string; description: string; icon: string }>;
+  email: string;
+  phone: string;
+  location: string;
+  facebookUrl: string;
+  twitterUrl: string;
+  instagramUrl: string;
 }

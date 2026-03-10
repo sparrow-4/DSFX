@@ -8,7 +8,7 @@ import type { Product } from '@/types';
 import type { ApiProduct } from '@/lib/api';
 
 import { useQuery } from '@tanstack/react-query';
-import { fetchProducts } from '@/lib/api';
+import { fetchProducts, fetchSettings } from '@/lib/api';
 
 
 export default function HomePage() {
@@ -34,6 +34,11 @@ export default function HomePage() {
   const { data: products = [] } = useQuery({
     queryKey: ['products'],
     queryFn: fetchProducts
+  });
+
+  const { data: settings } = useQuery({
+    queryKey: ['settings'],
+    queryFn: fetchSettings
   });
 
   const featured = products
@@ -70,7 +75,7 @@ export default function HomePage() {
               transition={{ duration: 0.7, delay: 0.1 }}
               className="mb-6 font-display text-5xl font-black leading-tight tracking-tight text-foreground md:text-7xl"
             >
-              Ignite Your <span className="text-gradient-spark">Stage</span>
+              Express Your <span className="text-gradient-spark">{settings?.storeName?.split(' ')[0] || 'Stage'}</span>
             </motion.h1>
 
             <motion.p
@@ -79,7 +84,7 @@ export default function HomePage() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="mb-8 max-w-xl text-lg text-muted-foreground"
             >
-              Premium pyrotechnics, CO2 jets, cold sparks, and flame effects for concerts, festivals, and live events that leave audiences breathless.
+              {settings?.heroSubtitle || 'Premium pyrotechnics, CO2 jets, cold sparks, and flame effects for concerts, festivals, and live events that leave audiences breathless.'}
             </motion.p>
 
             <motion.div
@@ -111,34 +116,31 @@ export default function HomePage() {
       <section className="border-y border-border bg-card/50">
         <div className="container mx-auto grid grid-cols-1 gap-6 px-4 py-8 md:grid-cols-3">
 
-          {[
-            { icon: Truck, title: 'Free Shipping', desc: 'On orders over ₹500' },
-            { icon: Shield, title: 'Certified Safe', desc: 'All products safety tested' },
-            { icon: Zap, title: 'Expert Support', desc: '24/7 technical assistance' },
-          ].map((item, i) => (
-
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="flex items-center gap-4"
-            >
-
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                <item.icon className="h-6 w-6 text-primary" />
-              </div>
-
-              <div>
-                <h3 className="font-display text-sm font-semibold text-foreground">{item.title}</h3>
-                <p className="text-xs text-muted-foreground">{item.desc}</p>
-              </div>
-
-            </motion.div>
-
-          ))}
-
+          {(settings?.benefits || [
+            { icon: 'Truck', title: 'Free Shipping', description: 'On orders over ₹500' },
+            { icon: 'Shield', title: 'Certified Safe', description: 'All products safety tested' },
+            { icon: 'Zap', title: 'Expert Support', description: '24/7 technical assistance' },
+          ]).map((item, i) => {
+            const Icon = { Truck, Shield, Zap }[item.icon] || Zap;
+            return (
+              <motion.div
+                key={item.title + i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="flex items-center gap-4"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                  <Icon className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-display text-sm font-semibold text-foreground">{item.title}</h3>
+                  <p className="text-xs text-muted-foreground">{item.description}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 

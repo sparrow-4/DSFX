@@ -27,6 +27,7 @@ import AdminProductsPage from "@/pages/admin/AdminProductsPage";
 import AdminCategoriesPage from "@/pages/admin/AdminCategoriesPage";
 import AdminOrdersPage from "@/pages/admin/AdminOrdersPage";
 import AdminReportsPage from "@/pages/admin/AdminReportsPage";
+import AdminSettingsPage from "@/pages/admin/AdminSettingsPage";
 import ProtectedRoute from "@/components/admin/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -47,14 +48,11 @@ function StoreLayout({ children }: { children: React.ReactNode }) {
 function AdminLayout({ children }: { children: React.ReactNode }) {
   const { user, logout } = useAuthStore();
   const navigate = useNavigate();
-console.log("hrlooo");
 
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
-
-  
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -73,8 +71,10 @@ console.log("hrlooo");
           <nav className="hidden md:flex items-center gap-6">
             <Link to="/admin" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-2"><LayoutDashboard className="h-4 w-4"/> Dashboard</Link>
             <Link to="/admin/products" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-2"><Package className="h-4 w-4"/> Products</Link>
+            <Link to="/admin/categories" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-2"><LayoutDashboard className="h-4 w-4"/> Categories</Link>
             <Link to="/admin/orders" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-2"><ShoppingBag className="h-4 w-4"/> Orders</Link>
             <Link to="/admin/reports" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-2"><BarChart3 className="h-4 w-4"/> Reports</Link>
+            <Link to="/admin/settings" className="text-sm font-medium text-muted-foreground hover:text-primary flex items-center gap-2"><Settings className="h-4 w-4"/> Settings</Link>
           </nav>
 
           <div className="flex items-center gap-3">
@@ -149,6 +149,16 @@ const App = () => (
               <ProtectedRoute>
                 <AdminLayout>
                   <AdminReportsPage />
+                </AdminLayout>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/settings"
+            element={
+              <ProtectedRoute>
+                <AdminLayout>
+                  <AdminSettingsPage />
                 </AdminLayout>
               </ProtectedRoute>
             }
