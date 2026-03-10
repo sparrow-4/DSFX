@@ -18,20 +18,19 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 
+const MONGO_URI = process.env.MONGO_URI
 
 // Middleware
 app.use(cors({
-  origin: "https://dsfx.vercel.app",
-  methods: ["GET","POST","PUT","DELETE"],
+  origin: [
+    "https://dsfx.vercel.app",
+    "http://localhost:5173"
+  ],
   credentials: true
-}));
+}))
 
-// app.use(cors({
-//   origin: "https://dsfx.vercel.app",
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-//   credentials: true
-// }));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
