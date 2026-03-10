@@ -1,8 +1,12 @@
 const  API_URL =  "https://dsfx.onrender.com/api"  
+
+
 // const BASE_URL = '/api';
 
 // Generic fetch helper
 async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
+
+  
   const { headers, ...restOptions } = options || {};
   const res = await fetch(`${API_URL}${endpoint}`, {
     ...restOptions,

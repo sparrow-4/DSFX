@@ -59,7 +59,11 @@ router.post("/register", async (req, res) => {
 // POST /api/auth/login - Manual Login
 router.post("/login", async (req, res) => {
   try {
+    console.log("login");
+    
     let { email, password } = req.body;
+    console.log(req.body,"body");
+    
 
     if (!email || !password) {
       return res

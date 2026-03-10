@@ -18,12 +18,17 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/spark-stage-store';
+const MONGO_URI = process.env.MONGO_URI || 
 
 // Middleware
+// app.use(cors({
+//   origin: ["http://localhost:8080"],
+//   credentials: true,
+// }));
 app.use(cors({
-  origin: ['https://dsfx.vercel.app'],
-  credentials: true,
+  origin: "https://dsfx.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

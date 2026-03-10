@@ -16,7 +16,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
   const redirectParams = searchParams.get('redirect') || '/';
 
   const handleManualLogin = async (e: React.FormEvent) => {
@@ -24,11 +24,16 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const data = await loginUser({ email, password });
-      console.log(data,"dataaa");
-      
+      console.log(data, "dataaa");
+
       login(data.user, data.token);
       toast.success('Successfully logged in!');
-      navigate(redirectParams);
+      if (data.user.role === "admin") {
+        navigate("/admin")
+      } else {
+        navigate(redirectParams);
+      }
+
     } catch (err: any) {
       toast.error(err.message || 'Login failed. Please verify credentials.');
     } finally {
@@ -46,7 +51,7 @@ export default function LoginPage() {
               Back
             </Link>
           </Button>
-          <br/>
+          <br />
           <h2 className="font-display text-3xl font-bold tracking-tight text-foreground">Welcome Back</h2>
           <p className="mt-2 text-sm text-muted-foreground">Log in to manage your orders</p>
         </div>
