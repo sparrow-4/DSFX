@@ -4,7 +4,7 @@ import { useAdminStore } from '@/store/adminStore';
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const isAuthenticated = useAdminStore((s) => s.isAuthenticated);
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/admin" replace />;
   }
   return <>{children}</>;
 }
