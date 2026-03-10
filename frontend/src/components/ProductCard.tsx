@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import type { Product } from '@/types';
 import { useCartStore } from '@/store/cartStore';
 import { Button } from '@/components/ui/button';
+import { getImageUrl } from '@/lib/api';
 
 interface ProductCardProps {
   product: Product;
@@ -28,7 +29,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <Link to={`/products/${product.id}`} className="block overflow-hidden">
         <div className="relative aspect-square bg-secondary">
           <img
-            src={product.images[0]}
+            src={getImageUrl(product.images[0])}
             alt={product.name}
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"

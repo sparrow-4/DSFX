@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { fetchProducts, fetchCategories, createProduct, updateProduct, deleteProduct, type ApiProduct, type ApiCategory } from '@/lib/api';
+import { fetchProducts, fetchCategories, createProduct, updateProduct, deleteProduct, getImageUrl, type ApiProduct, type ApiCategory } from '@/lib/api';
 import { useAdminStore } from '@/store/adminStore';
 import { toast } from 'sonner';
 
@@ -218,7 +218,7 @@ export default function AdminProductsPage() {
                         <div className="flex items-center gap-3">
                           <div className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-md border border-border bg-secondary">
                             {p.images[0] ? (
-                              <img src={p.images[0]} alt={p.name} className="h-full w-full object-cover" />
+                              <img src={getImageUrl(p.images[0])} alt={p.name} className="h-full w-full object-cover" />
                             ) : (
                               <div className="flex h-full w-full items-center justify-center text-muted-foreground/30">
                                 <Zap className="h-4 w-4" />
@@ -390,7 +390,7 @@ export default function AdminProductsPage() {
                     <div className="mt-2 flex flex-wrap gap-2">
                       {form.existingImages.map((img) => (
                         <div key={img} className="relative">
-                          <img src={img} alt="" className="h-16 w-16 rounded-md object-cover border border-border" />
+                          <img src={getImageUrl(img)} alt="" className="h-16 w-16 rounded-md object-cover border border-border" />
                           <button
                             onClick={() => removeExistingImage(img)}
                             className="absolute -right-1 -top-1 rounded-full bg-destructive p-0.5 text-white"

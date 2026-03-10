@@ -5,7 +5,7 @@ import { ArrowLeft, Package, Clock, CheckCircle, ExternalLink } from 'lucide-rea
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { format } from 'date-fns';
-import { fetchMyOrders } from '@/lib/api';
+import { fetchMyOrders, getImageUrl } from '@/lib/api';
 
 const STATUS_COLORS: Record<string, string> = {
   pending: 'bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20',
@@ -113,7 +113,7 @@ export default function OrdersPage() {
                       <div key={i} className="flex gap-4">
                         <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border border-border bg-secondary/20">
                           {item.image ? (
-                            <img src={item.image} alt={item.name} className="h-full w-full object-cover" />
+                            <img src={getImageUrl(item.image)} alt={item.name} className="h-full w-full object-cover" />
                           ) : (
                             <div className="h-full w-full flex items-center justify-center bg-secondary">
                               <Package className="h-6 w-6 text-muted-foreground" />

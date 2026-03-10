@@ -1,4 +1,14 @@
-const  API_URL =  "https://dsfx.onrender.com/api"  
+export const API_URL =  "https://dsfx.onrender.com/api";
+
+export function getImageUrl(imagePath?: string): string {
+  if (!imagePath) return '/placeholder.svg';
+  if (imagePath.startsWith('http') || imagePath.startsWith('data:')) return imagePath;
+  const baseUrl = API_URL.replace('/api', '');
+  // ensure no double slashes if base has trailing or path has leading
+  const cleanBase = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+  const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+  return `${cleanBase}${cleanPath}`;
+}
 
 
 // const BASE_URL = '/api';

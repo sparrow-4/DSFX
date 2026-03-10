@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { fetchProduct } from '@/lib/api';
 import { useCartStore } from '@/store/cartStore';
+import { getImageUrl } from '@/lib/api';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -94,7 +95,7 @@ export default function ProductDetailPage() {
           >
             <div className="overflow-hidden rounded-xl border border-border bg-secondary">
               <img
-                src={product.images[selectedImage]}
+                src={getImageUrl(product.images[selectedImage])}
                 alt={product.name}
                 className="h-96 w-full object-cover"
               />
@@ -109,7 +110,7 @@ export default function ProductDetailPage() {
                       selectedImage === i ? 'border-primary' : 'border-border'
                     }`}
                   >
-                    <img src={img} alt={`${product.name} ${i + 1}`} className="h-full w-full object-cover" />
+                    <img src={getImageUrl(img)} alt={`${product.name} ${i + 1}`} className="h-full w-full object-cover" />
                   </button>
                 ))}
               </div>

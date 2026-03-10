@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCartStore } from '@/store/cartStore';
 import { Button } from '@/components/ui/button';
+import { getImageUrl } from '@/lib/api';
 
 export default function CartDrawer() {
   const { items, isOpen, closeCart, removeItem, updateQuantity, getSubtotal } = useCartStore();
@@ -59,7 +60,7 @@ export default function CartDrawer() {
                         className="flex gap-4 rounded-lg border border-border bg-secondary/30 p-3"
                       >
                         <img
-                          src={item.product.images[0]}
+                          src={getImageUrl(item.product.images[0])}
                           alt={item.product.name}
                           className="h-20 w-20 rounded-md object-cover"
                         />

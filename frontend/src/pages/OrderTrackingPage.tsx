@@ -5,7 +5,7 @@ import { ArrowLeft, CheckCircle2, Clock, Package, Truck, Banknote } from 'lucide
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { format } from 'date-fns';
-import { cancelOrder } from '@/lib/api';
+import { cancelOrder, getImageUrl } from '@/lib/api';
 import { toast } from 'sonner';
 
 const API_URL = '/api';
@@ -170,7 +170,7 @@ export default function OrderTrackingPage() {
               <div className="space-y-4">
                 {order.items.map((item: any, i: number) => (
                   <div key={i} className="flex gap-4 p-3 rounded border border-border bg-secondary/10">
-                    <img src={item.image || 'https://placehold.co/100'} alt={item.name} className="h-16 w-16 object-cover rounded bg-secondary" />
+                    <img src={item.image ? getImageUrl(item.image) : 'https://placehold.co/100'} alt={item.name} className="h-16 w-16 object-cover rounded bg-secondary" />
                     <div className="flex-1">
                       <p className="font-medium text-sm line-clamp-2">{item.name}</p>
                       <p className="text-xs text-muted-foreground mt-1">Qty: {item.quantity}</p>
