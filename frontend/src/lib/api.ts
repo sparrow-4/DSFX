@@ -1,4 +1,4 @@
-export const API_URL =  "https://dsfx.onrender.com/api";
+export const API_URL = "https://dsfx.onrender.com/api";
 
 export function getImageUrl(imagePath?: string): string {
   if (!imagePath) return '/placeholder.svg';
@@ -16,7 +16,7 @@ export function getImageUrl(imagePath?: string): string {
 // Generic fetch helper
 async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T> {
 
-  
+
   const { headers, ...restOptions } = options || {};
   const res = await fetch(`${API_URL}${endpoint}`, {
     ...restOptions,
@@ -127,6 +127,30 @@ export function deleteProduct(id: string): Promise<{ message: string }> {
   return apiFetch(`/products/${id}`, {
     method: 'DELETE',
     headers: getAuthHeaders() as HeadersInit,
+  });
+}
+
+// ─── Reviews ─────────────────────────────────────────────────────────────────
+
+export interface ApiReview {
+  _id: string;
+  product: string;
+  user: string;
+  userName: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+}
+
+export function fetchProductReviews(productId: string): Promise<ApiReview[]> {
+  return apiFetch<ApiReview[]>(`/products/${productId}/reviews`);
+}
+
+export function submitProductReview(productId: string, payload: { rating: number; comment: string; userName: string }): Promise<ApiReview> {
+  return apiFetch<ApiReview>(`/products/${productId}/reviews`, {
+    method: 'POST',
+    headers: getCustomerAuthHeaders() as HeadersInit,
+    body: JSON.stringify(payload),
   });
 }
 

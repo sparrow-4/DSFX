@@ -8,6 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { fetchProduct } from '@/lib/api';
 import { useCartStore } from '@/store/cartStore';
 import { getImageUrl } from '@/lib/api';
+import ReviewSection from '@/components/ReviewSection';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -24,21 +25,21 @@ export default function ProductDetailPage() {
 
   const product = apiProduct
     ? {
-        id: apiProduct._id,
-        name: apiProduct.name,
-        description: apiProduct.description,
-        price: apiProduct.price,
-        originalPrice: apiProduct.originalPrice,
-        images: apiProduct.images.length > 0 ? apiProduct.images : ['/placeholder.svg'],
-        category: apiProduct.category,
-        stockQuantity: apiProduct.stock,
-        specifications: apiProduct.specifications,
-        featured: apiProduct.featured,
-        rating: apiProduct.rating,
-        reviewCount: apiProduct.reviewCount,
-        createdAt: new Date(apiProduct.createdAt),
-        updatedAt: new Date(apiProduct.updatedAt),
-      }
+      id: apiProduct._id,
+      name: apiProduct.name,
+      description: apiProduct.description,
+      price: apiProduct.price,
+      originalPrice: apiProduct.originalPrice,
+      images: apiProduct.images.length > 0 ? apiProduct.images : ['/placeholder.svg'],
+      category: apiProduct.category,
+      stockQuantity: apiProduct.stock,
+      specifications: apiProduct.specifications,
+      featured: apiProduct.featured,
+      rating: apiProduct.rating,
+      reviewCount: apiProduct.reviewCount,
+      createdAt: new Date(apiProduct.createdAt),
+      updatedAt: new Date(apiProduct.updatedAt),
+    }
     : null;
 
   if (isLoading) {
@@ -106,9 +107,8 @@ export default function ProductDetailPage() {
                   <button
                     key={i}
                     onClick={() => setSelectedImage(i)}
-                    className={`h-16 w-16 overflow-hidden rounded-lg border-2 transition-colors ${
-                      selectedImage === i ? 'border-primary' : 'border-border'
-                    }`}
+                    className={`h-16 w-16 overflow-hidden rounded-lg border-2 transition-colors ${selectedImage === i ? 'border-primary' : 'border-border'
+                      }`}
                   >
                     <img src={getImageUrl(img)} alt={`${product.name} ${i + 1}`} className="h-full w-full object-cover" />
                   </button>
@@ -136,9 +136,8 @@ export default function ProductDetailPage() {
                     {Array.from({ length: 5 }).map((_, i) => (
                       <Star
                         key={i}
-                        className={`h-4 w-4 ${
-                          i < Math.round(product.rating!) ? 'fill-primary text-primary' : 'text-muted'
-                        }`}
+                        className={`h-4 w-4 ${i < Math.round(product.rating!) ? 'fill-primary text-primary' : 'text-muted'
+                          }`}
                       />
                     ))}
                   </div>
@@ -222,6 +221,10 @@ export default function ProductDetailPage() {
             </div>
           </motion.div>
         </div>
+
+        {/* Reviews Section */}
+        <ReviewSection productId={product.id} />
+
       </div>
     </div>
   );
